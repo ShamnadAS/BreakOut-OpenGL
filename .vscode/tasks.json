@@ -12,6 +12,7 @@
                 "${workspaceFolder}/src/*.cpp",
                 "${workspaceFolder}/src/glad.c",
                 "-lglfw3dll",
+                "-lfreetype",
                 "-o",
                 "${workspaceFolder}/myprogram.exe"
             ],

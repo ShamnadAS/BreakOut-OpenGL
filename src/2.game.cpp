@@ -10,11 +10,13 @@
 #include <utility/sprite_renderer.h>
 #include <utility/resource_manager.h>
 #include <game/5.1.ball_object_collisions.h>
+#include <utility/text_renderer.h>
 
 // Game-related State data
 SpriteRenderer *Renderer;
 GameObject *Player;
 BallObject *Ball;
+TextRenderer *Text;
 
 // Initial size of the player paddle
 const Vector2 PLAYER_SIZE(100.0f, 20.0f);
@@ -79,6 +81,10 @@ void Game::Init()
     Vector2 ballPos = playerPos + Vector2(PLAYER_SIZE.x / 2.0f -
     BALL_RADIUS, -BALL_RADIUS * 2.0f);
     Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("face"));
+    //Text
+    Text = new TextRenderer(Width, Height);
+    Text->Load("fonts/OCRAEXT.TTF", 24);
+
 }
 
 void Game::ResetLevel()
@@ -110,6 +116,8 @@ void Game::Update(float dt)
         ResetLevel();
         ResetPlayer();
     }
+
+    Text->RenderText("Lives:", 5.0f, 5.0f, 1.0f);
 }
 
 void Game::ProcessInput(float dt)
@@ -151,6 +159,8 @@ void Game::Render()
         Player->Draw(*Renderer);
         // draw ball
         Ball->Draw(*Renderer);
+        //draw the text
+        Text->RenderText("Lives:", 5.0f, 5.0f, 1.0f);
     }
 }
 
